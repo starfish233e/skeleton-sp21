@@ -35,6 +35,7 @@ public class Game {
             moved = false;
             while (!moved) {
                 String cmnd = _source.getKey();
+                System.out.println("Key pressed: " + cmnd);
                 switch (cmnd) {
                     case "Quit":
                         _playing = false;
@@ -42,7 +43,7 @@ public class Game {
                     case "New Game":
                         return;
                     case "Up": case "Down": case "Left": case "Right":
-                    case "\u2190": case "\u2191": case "\u2192": case "\u2193":
+                    case "A": case "W": case "D": case "S":
                         if (!_model.gameOver() && _model.tilt(keyToSide(cmnd))) {
                             _model.notifyObservers(cmnd);
                             moved = true;
@@ -60,13 +61,13 @@ public class Game {
      *  or "Right"). */
     private Side keyToSide(String key) {
         switch (key) {
-            case "Up": case "\u2191":
+            case "Up": case "W":
                 return NORTH;
-            case "Down": case "\u2193":
+            case "Down": case "S":
                 return SOUTH;
-            case "Left": case "\u2190":
+            case "Left": case "A":
                 return WEST;
-            case "Right": case "\u2192":
+            case "Right": case "D":
                 return EAST;
             default:
                 throw new IllegalArgumentException("unknown key designation");
