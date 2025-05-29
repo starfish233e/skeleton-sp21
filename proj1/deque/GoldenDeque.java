@@ -1,10 +1,62 @@
 package deque;
 
+import java.util.Iterator;
 import java.util.LinkedList; // 或者 java.util.ArrayDeque
+import java.util.ListIterator;
 
 // 这个类只是一个包装器，实际使用Java内置的Deque
 public class GoldenDeque<T> implements Deque<T> {
     private LinkedList<T> internalDeque; // 或者 ArrayDeque<T>
+
+    public Iterator<T> iterator() {
+        return new ListIterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            @Override
+            public T previous() {
+                return null;
+            }
+
+            @Override
+            public int nextIndex() {
+                return 0;
+            }
+
+            @Override
+            public int previousIndex() {
+                return 0;
+            }
+
+            @Override
+            public void remove() {
+
+            }
+
+            @Override
+            public void set(T t) {
+
+            }
+
+            @Override
+            public void add(T t) {
+
+            }
+        };
+    }
+
 
     public GoldenDeque() {
         internalDeque = new LinkedList<>();

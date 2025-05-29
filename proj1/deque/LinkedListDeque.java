@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T>{
     private class DequeNode {
-        public T item;
-        public DequeNode prev;
-        public DequeNode next;
+        private T item;
+        private DequeNode prev;
+        private DequeNode next;
 
-        public DequeNode(T i, DequeNode p, DequeNode r) {
+        DequeNode(T i, DequeNode p, DequeNode r) {
             item = i;
             prev = p;
             next = r;
@@ -21,7 +21,7 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     private class LinkedListDequeIterator implements Iterator<T> {
         private DequeNode currentPos;
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             currentPos = sentinel;
         }
         public boolean hasNext() {

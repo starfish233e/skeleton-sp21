@@ -14,7 +14,7 @@ public class ArrayDeque<T> implements Deque<T> {
 
     private class ArrayDequeIterator implements Iterator<T> {
         private int currentPos;
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             currentPos = 0;
         }
         public boolean hasNext() {
