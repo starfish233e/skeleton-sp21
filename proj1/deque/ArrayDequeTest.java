@@ -19,7 +19,7 @@ public class ArrayDequeTest {
 
     @Test
     public void testIsEmpty() {
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        ArrayDeque<Integer> deque = new ArrayDeque<>(100);
         assertEquals(deque.isEmpty(), true);
         deque.addFirst(1);
         for (int i = 0; i < 200; i += 1) {

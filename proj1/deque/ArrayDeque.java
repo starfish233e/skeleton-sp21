@@ -1,10 +1,32 @@
 package deque;
 
+import java.util.Iterator;
+
 public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
+
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        private int currentPos;
+        public ArrayDequeIterator() {
+            currentPos = 0;
+        }
+        public boolean hasNext() {
+            return currentPos < size;
+        }
+
+        public T next() {
+            T returnItem = items[currentPos];
+            currentPos += 1;
+            return returnItem;
+        }
+    }
 
     /** Create an empty ArrayDeque. */
     public ArrayDeque() {
@@ -12,6 +34,13 @@ public class ArrayDeque<T> implements Deque<T> {
         size = 0;
         nextFirst = 50;
         nextLast = 51;
+    }
+
+    public ArrayDeque(int capacity) {
+        items = (T[]) new Object[capacity];
+        size = 0;
+        nextFirst = capacity / 2;
+        nextLast = plusOne(nextFirst);
     }
 
     public void resize(int capacity) {
@@ -28,15 +57,16 @@ public class ArrayDeque<T> implements Deque<T> {
         nextLast = size;
     }
 
-    public int plusOne(int index) {
+    private int plusOne(int index) {
         return (index + 1) % items.length;
     }
 
-    public int minusOne(int index) {
+    private int minusOne(int index) {
         return (index - 1 + items.length) % items.length;
     }
 
     /** Adds an item of type T to the front of the deque. You can assume that item is never null. */
+    @Override
     public void addFirst(T item) {
         if (isFull()) {
             resize(size * 2);
@@ -47,6 +77,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /** Adds an item of type T to the back of the deque. You can assume that item is never null. */
+    @Override
     public void addLast(T item) {
         if (isFull()) {
             resize(size * 2);
@@ -54,11 +85,6 @@ public class ArrayDeque<T> implements Deque<T> {
         items[nextLast] = item;
         nextLast = plusOne(nextLast);
         size += 1;
-    }
-
-    /** Returns true if deque is empty, false otherwise. */
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     /** Returns the number of items in the deque.*/
@@ -71,6 +97,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /** Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line. */
+    @Override
     public void printDeque() {
         for (int i = 0; i < items.length; i += 1) {
             if (items[i] != null) {
@@ -81,6 +108,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /** Removes and returns the item at the front of the deque. If no such item exists, returns null. */
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -94,6 +122,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /**  Removes and returns the item at the back of the deque. If no such item exists, returns null. */
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -107,6 +136,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     /** Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque! */
+    @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;

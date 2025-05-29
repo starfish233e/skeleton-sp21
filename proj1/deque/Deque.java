@@ -1,14 +1,18 @@
 package deque;
 
-public interface Deque<T> {
+public interface Deque<T> extends Iterable<T>{
     /** Adds an item of type T to the front of the deque. You can assume that item is never null. */
     public void addFirst(T item);
 
     /** Adds an item of type T to the back of the deque. You can assume that item is never null. */
     public void addLast(T item);
 
-    /** Returns true if deque is empty, false otherwise. */
-    public boolean isEmpty();
+    /**
+     * Returns true if deque is empty, false otherwise.
+     */
+    public default boolean isEmpty() {
+        return size() == 0;
+    }
 
     /** Returns the number of items in the deque.*/
     public int size();
